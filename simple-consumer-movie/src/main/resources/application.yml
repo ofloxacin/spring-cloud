@@ -1,11 +1,41 @@
 server:
   port: 8010
+logging:
+  level:
+    root: info
+    com.ofloxacin.consumer.feign.UserFeignClient: debug
 spring:
   application:
     name: consumer-movie
+  cloud:
+    inetutils:
+      ignored-interfaces:
+        - docker0
+        - veth.*
+      preferred-networks:
+        - 192.168
+        - 10.0
+      use-only-site-local-interfaces: false
 eureka:
   instance:
     prefer-ip-address: true
   client:
+    healthcheck:
+      enabled: true
     service-url:
       defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
+feign:
+  client:
+    config:
+      provider-user:
+        loggerLevel: basic
+  compression:
+    request:
+      enabled: true
+      mime-types:
+        - text/xml
+        - application/xml
+        - application/json
+      min-request-size: 1024
+    response:
+      enabled: true

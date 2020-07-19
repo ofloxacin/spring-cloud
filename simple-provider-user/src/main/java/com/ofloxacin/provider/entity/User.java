@@ -1,4 +1,4 @@
-package com.ofloxacin.entity;
+package com.ofloxacin.provider.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

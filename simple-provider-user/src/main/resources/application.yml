@@ -15,9 +15,23 @@ spring:
     platform: h2
     schema: classpath:schema.sql
     data: classpath:data.sql
+  cloud:
+    inetutils:
+      ignored-interfaces:
+        - docker0
+        - veth.*
+      preferred-networks:
+        - 192.168
+        - 10.0
+      use-only-site-local-interfaces: false
 eureka:
   client:
+    healthcheck:
+      enabled: true
     service-url:
       defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
   instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true
+    metadata-map:
+      cn-name: 用户服务

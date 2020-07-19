@@ -1,4 +1,4 @@
-package com.consumer.pojo;
+package com.ofloxacin.consumer.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
