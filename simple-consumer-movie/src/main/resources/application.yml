@@ -16,6 +16,11 @@ spring:
         - 192.168
         - 10.0
       use-only-site-local-interfaces: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   instance:
     prefer-ip-address: true
@@ -39,3 +44,10 @@ feign:
       min-request-size: 1024
     response:
       enabled: true
+  hystrix:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

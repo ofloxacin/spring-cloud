@@ -1,6 +1,7 @@
 package com.ofloxacin.consumer.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.ofloxacin.consumer.feign.UserFeignClient;
 import com.ofloxacin.consumer.pojo.User;
 import lombok.extern.slf4j.Slf4j;
@@ -40,12 +41,15 @@ public class UserController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
-    @HystrixCommand(fallbackMethod = "findByIdFallback")
     @GetMapping("/user/{id}")
     public User findById(@PathVariable Long id) {
         return userFeignClient.findById(id);
     }
 
+    @HystrixCommand(fallbackMethod = "findByIdFallback", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"),
+            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000")
+    })
     @PostMapping("/user/add")
     public Long add(@RequestBody User user) {
         return userFeignClient.addUser(user);
@@ -61,7 +65,7 @@ public class UserController {
         return loadBalancerClient.choose("provider-user");
     }
 
-    public User findByIdFallback(Long id) {
+    public User findByIdFallback(Long id, Throwable throwable) {
         User user = new User();
         user.setId(-1L);
         user.setName("默认用户");

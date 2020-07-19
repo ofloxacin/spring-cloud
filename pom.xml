@@ -20,6 +20,8 @@
         <module>simple-consumer-movie</module>
         <module>discovery-eureka</module>
         <module>discovery-eureka-ha</module>
+        <module>hystrix-dashboard</module>
+        <module>hystrix-turbine</module>
     </modules>
 
     <repositories>
