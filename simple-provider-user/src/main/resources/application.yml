@@ -24,6 +24,8 @@ spring:
         - 192.168
         - 10.0
       use-only-site-local-interfaces: false
+  zipkin:
+    base-url: http://39.96.0.238:9411
 eureka:
   client:
     healthcheck:

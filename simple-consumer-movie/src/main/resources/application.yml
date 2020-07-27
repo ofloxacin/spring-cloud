@@ -21,6 +21,15 @@ spring:
     port: 5672
     username: guest
     password: guest
+  zipkin:
+    base-url: http://39.96.0.238:9411
+  main:
+    allow-bean-definition-overriding: true
+  sleuth:
+    integration:
+      enabled: false
+    scheduled:
+      enabled: false
 eureka:
   instance:
     prefer-ip-address: true
